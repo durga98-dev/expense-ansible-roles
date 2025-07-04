@@ -1,0 +1,5 @@
+- name: Install nginx and configure it
+  hosts: frontend
+  become: yes
+  roles:
+  - frontend
