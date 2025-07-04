@@ -1,0 +1,5 @@
+- name: Install nodejs and configure
+  hosts: backend
+  become: yes
+  roles:
+  - backend
