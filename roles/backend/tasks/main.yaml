@@ -19,7 +19,7 @@
 
 - name: Create directory /app
   ansible.builtin.file:
-    path: /home/ec2-user/app
+    path: /app
     state: directory
 
 - name: Download the code
@@ -30,12 +30,12 @@
 - name: unzip the file
   ansible.builtin.unarchive:
     src: /tmp/backend.zip
-    dest: /home/ec2-user/app
+    dest: /app
     remote_src: yes
 
 - name: Install dependencies
   community.general.npm:
-    path: /home/ec2-user/app
+    path: /app
 
 - name: copy the backend service file
   ansible.builtin.template: # It will search in templates folder
@@ -57,7 +57,7 @@
     login_user: "{{ MY_SQL_USER }}"
     login_password: "{{ MY_SQL_PASS }}"
     state: import
-    target: /home/ec2-user/app/schema/backend.sql
+    target: /app/schema/backend.sql
 
 - name: Daemon reload and Restart the service
   ansible.builtin.systemd_service:
