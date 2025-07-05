@@ -9,22 +9,24 @@
     enabled: true
     state: restarted
 
-- name: remove files
-  command: "rm -rf /usr/share/nginx/html/*"
+- name: Include tasks from common role
+  include_role:
+    name: common
+    tasks_from: main
 
-- name: Download the code
-  ansible.builtin.get_url:
-    url: https://expense-builds.s3.us-east-1.amazonaws.com/expense-frontend-v2.zip
-    dest: /tmp/frontend.zip
+# - name: remove files
+#   command: "rm -rf /usr/share/nginx/html/*"
 
-# - name: change directory
-#   command: cd /usr/share/nginx/html
+# - name: Download the code
+#   ansible.builtin.get_url:
+#     url: https://expense-builds.s3.us-east-1.amazonaws.com/expense-frontend-v2.zip
+#     dest: /tmp/frontend.zip
 
-- name: unzip the file
-  ansible.builtin.unarchive:
-    src: /tmp/frontend.zip
-    dest: /usr/share/nginx/html
-    remote_src: yes
+# - name: unzip the file
+#   ansible.builtin.unarchive:
+#     src: /tmp/frontend.zip
+#     dest: /usr/share/nginx/html
+#     remote_src: yes
 
 - name: copy the expense conf file
   ansible.builtin.template:
